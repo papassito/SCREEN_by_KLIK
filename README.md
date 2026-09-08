@@ -1,1233 +1,939 @@
 # SCREEN by KLIK
 
-## Professional Screen Recorder
+## Screen Recorder for Windows
 
-**SCREEN by KLIK** es un software de escritorio profesional para **capturar, grabar, editar y exportar la actividad de la pantalla de una computadora**.
+**SCREEN by KLIK** es una aplicación de escritorio profesional para **captura y grabación de pantalla**, desarrollada para el ecosistema **KLIK**.
 
-Su propósito es ofrecer una alternativa propia, moderna y eficiente a herramientas como Movavi Screen Recorder, enfocada inicialmente en Windows y diseñada bajo una filosofía **local-first, autónoma, privada y sin dependencia obligatoria de servicios en la nube**.
+Su objetivo es permitir al usuario grabar de forma sencilla, estable y controlada:
 
----
+* La pantalla completa.
+* Un monitor específico.
+* Una ventana específica.
+* Una región seleccionada.
+* La pantalla junto con audio del sistema.
+* La pantalla junto con micrófono.
+* La pantalla junto con cámara.
+* Combinaciones configurables de estas fuentes.
 
-## 1. Visión del producto
-
-SCREEN by KLIK permite al usuario:
-
-> **Seleccionar qué grabar → grabar → detener → editar → exportar.**
-
-El producto debe mantener una experiencia sencilla para usuarios normales, pero proporcionar capacidades avanzadas para usuarios profesionales.
-
-SCREEN no es un sistema de acceso remoto.
-
-SCREEN no es una plataforma de vigilancia.
-
-SCREEN no es un servicio de streaming.
-
-SCREEN no requiere una cuenta en la nube para funcionar.
-
-SCREEN es un **grabador de pantalla profesional y autónomo**.
+SCREEN by KLIK está diseñado como un **grabador de pantalla nativo de escritorio**, no como una aplicación de acceso remoto, videoconferencia ni servicio de streaming.
 
 ---
 
-# 2. Objetivos
+# 1. Identidad del proyecto
 
-## Objetivo principal
+**Nombre:** SCREEN by KLIK
 
-Crear un grabador de pantalla profesional capaz de capturar:
+**Categoría:** Screen Recorder / Desktop Capture
 
-* Pantalla completa.
-* Monitor específico.
-* Región personalizada.
-* Ventana específica.
-* Audio del sistema.
-* Micrófono.
-* Cámara web opcional.
-* Cursor.
-* Clics.
-* Teclas.
-* Video sincronizado con audio.
+**Producto:** Aplicación de escritorio
 
-El resultado debe poder almacenarse y exportarse como un archivo multimedia estándar.
+**Plataforma inicial:** Windows
+
+**Lenguaje principal:** Go
+
+**Tipo de aplicación:** Desktop Application
+
+**Propietario del producto:** KLIK
 
 ---
 
-# 3. Principios fundamentales
+# 2. Propósito
 
-SCREEN by KLIK se desarrollará bajo los siguientes principios.
+SCREEN by KLIK debe proporcionar una herramienta profesional para crear grabaciones de pantalla de forma rápida y confiable.
 
-### 3.1 Local-first
+El usuario debe poder:
 
-Las grabaciones pertenecen al usuario y permanecen localmente en su equipo salvo que el propio usuario decida exportarlas o transferirlas.
+1. Seleccionar qué desea grabar.
+2. Configurar audio y vídeo.
+3. Iniciar la grabación.
+4. Controlar la grabación.
+5. Pausar o detenerla cuando corresponda.
+6. Procesar y codificar el contenido.
+7. Guardar el resultado.
+8. Abrir o administrar la grabación generada.
 
-### 3.2 Sin nube obligatoria
+La aplicación debe priorizar:
 
-El funcionamiento principal de SCREEN no dependerá de:
+* simplicidad;
+* estabilidad;
+* rendimiento;
+* calidad;
+* control del usuario;
+* bajo consumo innecesario de recursos;
+* comportamiento predecible.
 
-* Google.
-* Microsoft Cloud.
-* AWS.
-* Azure.
-* APIs externas.
-* Servicios SaaS.
-* Plataformas de almacenamiento remoto.
+---
 
-### 3.3 Autónomo
+# 3. Qué es SCREEN
 
-SCREEN debe poder instalarse y utilizarse como producto independiente.
+SCREEN es principalmente un **grabador de pantalla**.
 
-### 3.4 KLIK OS opcional
-
-La integración con KLIK OS podrá existir, pero SCREEN no debe depender de KLIK OS para realizar su función principal.
+Su función central es:
 
 ```text
-SCREEN
-│
-├── Standalone
-│      └── Funcionamiento completo
-│
-└── KLIK OS Integration
-       └── Capacidades adicionales
+CAPTURAR
+   ↓
+PROCESAR
+   ↓
+CODIFICAR
+   ↓
+GUARDAR
 ```
 
-### 3.5 Privacidad
-
-SCREEN no debe enviar automáticamente:
-
-* Grabaciones.
-* Audio.
-* Capturas.
-* Datos de pantalla.
-* Datos del micrófono.
-* Datos de cámara.
-
-### 3.6 Transparencia
-
-Mientras exista una grabación activa, el usuario debe poder identificar claramente que SCREEN está grabando.
+El producto puede incorporar funcionalidades adicionales relacionadas directamente con la grabación, pero todas ellas deben mantener una relación clara con el objetivo principal.
 
 ---
 
-# 4. Plataforma inicial
+# 4. Qué NO es SCREEN
 
-## Primera plataforma
+SCREEN by KLIK **NO es**:
 
-**Windows**
+* un software de acceso remoto;
+* un escritorio remoto;
+* una herramienta de administración remota;
+* un servidor de control remoto;
+* un sistema de videoconferencia;
+* una plataforma de streaming;
+* un editor de vídeo completo;
+* un sistema de vigilancia;
+* un sistema de monitoreo remoto;
+* un servicio SaaS obligatorio;
+* una aplicación que dependa de una cuenta en la nube para funcionar.
 
-La primera versión estará optimizada para equipos Windows modernos.
-
-La arquitectura deberá evitar quedar innecesariamente acoplada a Windows en las capas superiores para permitir futuras implementaciones.
-
-Posibles plataformas futuras:
-
-* Windows.
-* Linux.
-* macOS.
-
-Estas plataformas futuras no forman parte del MVP inicial.
-
----
-
-# 5. Funciones principales
-
-## 5.1 Captura
-
-SCREEN debe soportar:
-
-### Pantalla completa
-
-Grabar todo el escritorio.
-
-### Monitor
-
-Seleccionar un monitor específico.
-
-### Región
-
-Seleccionar manualmente una zona rectangular de la pantalla.
-
-### Ventana
-
-Seleccionar una ventana o aplicación concreta.
-
-### Multi-monitor
-
-Detectar correctamente configuraciones con múltiples monitores.
+Cualquier funcionalidad futura que pertenezca a esas categorías debe tratarse como otro producto o proyecto.
 
 ---
 
-# 6. Recording Engine
+# 5. Visión del producto
 
-El Recording Engine será responsable de administrar la sesión de grabación.
+SCREEN by KLIK debe evolucionar hacia un grabador de pantalla de escritorio profesional capaz de competir funcionalmente con herramientas comerciales de captura de pantalla.
 
-Funciones:
+La aplicación debe permitir diferentes niveles de uso:
 
-* Inicio.
-* Pausa.
-* Reanudación.
-* Detención.
-* Cancelación.
-* Cuenta regresiva.
-* Temporizador.
-* Grabación programada.
-* Duración configurable.
-* Atajos de teclado.
-* Estado de sesión.
-* Recuperación ante fallos.
+### Grabación rápida
 
-El sistema debe mantener sincronizados todos los componentes de la sesión.
+El usuario selecciona una fuente y comienza a grabar inmediatamente.
 
-```text
-VIDEO
-  +
-SYSTEM AUDIO
-  +
-MICROPHONE
-  +
-CAMERA
-  +
-OVERLAYS
-       │
-       ▼
-RECORDING SESSION
-```
+### Grabación configurada
+
+El usuario puede establecer:
+
+* fuente;
+* resolución;
+* FPS;
+* calidad;
+* codec;
+* audio;
+* micrófono;
+* cámara;
+* cursor;
+* destino;
+* teclas rápidas;
+* opciones visuales.
+
+### Grabación profesional
+
+El sistema debe permitir combinar múltiples fuentes y opciones de captura sin sacrificar estabilidad.
+
+---
+
+# 6. Fuentes de captura
+
+SCREEN debe contemplar como fuentes principales:
+
+## 6.1 Pantalla completa
+
+Captura todo el escritorio correspondiente al monitor seleccionado.
+
+## 6.2 Monitor específico
+
+Permite seleccionar uno de los monitores detectados por el sistema.
+
+## 6.3 Ventana
+
+Permite seleccionar una ventana concreta para grabarla.
+
+## 6.4 Región
+
+Permite seleccionar manualmente un rectángulo de captura.
+
+La selección debe permitir establecer:
+
+* posición;
+* tamaño;
+* resolución efectiva;
+* relación con el escritorio;
+* comportamiento ante cambios de resolución.
 
 ---
 
 # 7. Audio
 
-SCREEN deberá permitir seleccionar y administrar:
+SCREEN debe soportar fuentes de audio configurables.
 
-## Audio del sistema
+Como mínimo:
 
-Captura del audio reproducido por el equipo.
+* audio del sistema;
+* micrófono;
+* combinación de audio del sistema y micrófono.
 
-## Micrófono
+La arquitectura de audio debe mantener separadas las etapas de:
 
-Captura de voz mediante el dispositivo seleccionado.
+```text
+AUDIO SOURCE
+     ↓
+CAPTURE
+     ↓
+PROCESSING
+     ↓
+SYNCHRONIZATION
+     ↓
+ENCODING
+     ↓
+OUTPUT
+```
 
-## Mezcla
-
-El usuario podrá grabar:
-
-* Solo sistema.
-* Solo micrófono.
-* Sistema + micrófono.
-* Ninguno.
-
-La arquitectura debe mantener el audio separado internamente cuando sea conveniente para facilitar edición, diagnóstico y sincronización.
+La sincronización entre audio y vídeo es un requisito fundamental.
 
 ---
 
-# 8. Cámara web
+# 8. Cámara
 
-La cámara será opcional.
+SCREEN debe poder incorporar una cámara durante una grabación cuando el hardware y el sistema operativo lo permitan.
 
-SCREEN podrá incorporar la cámara dentro de la grabación como overlay.
+La cámara debe poder funcionar como:
 
-Funciones previstas:
+* fuente secundaria;
+* overlay;
+* imagen dentro de la grabación.
 
-* Activar/desactivar.
-* Selección de cámara.
-* Resolución.
-* Tamaño.
-* Posición.
-* Forma.
-* Borde.
-* Transparencia.
-
-La cámara no debe ser obligatoria para grabar pantalla.
+La implementación debe mantener separada la captura de cámara del motor principal de captura de pantalla.
 
 ---
 
 # 9. Cursor
 
-SCREEN podrá mostrar el cursor dentro de la grabación.
+El sistema debe contemplar el cursor como elemento configurable.
 
 Opciones previstas:
 
-* Mostrar/ocultar cursor.
-* Resaltado.
-* Tamaño.
-* Efectos visuales.
-* Identificación de clic izquierdo.
-* Identificación de clic derecho.
+* mostrar cursor;
+* ocultar cursor;
+* capturar posición;
+* resaltar cursor;
+* representar clics cuando esté habilitado.
 
-El sistema deberá evitar que estos efectos degraden innecesariamente el rendimiento de captura.
+Estas funcionalidades deberán definirse técnicamente en `CURSOR.md`.
 
 ---
 
-# 10. Teclas
+# 10. Grabación
 
-Como función opcional, SCREEN podrá mostrar las teclas presionadas durante una grabación.
-
-Ejemplo:
+El motor de grabación será responsable de coordinar:
 
 ```text
-CTRL + C
-ALT + TAB
-ENTER
-ESC
+Screen Capture
+       +
+Audio Capture
+       +
+Microphone
+       +
+Camera
+       +
+Cursor
+       ↓
+Recording Pipeline
+       ↓
+Encoder
+       ↓
+Output File
 ```
 
-Esta función estará orientada principalmente a:
+El motor debe controlar correctamente:
 
-* Tutoriales.
-* Cursos.
-* Capacitación.
-* Soporte técnico.
-* Documentación.
+* inicio;
+* pausa;
+* reanudación;
+* finalización;
+* errores;
+* sincronización;
+* flush de datos;
+* cierre seguro del archivo.
+
+Una interrupción inesperada no debe provocar, cuando técnicamente sea posible evitarlo, la pérdida completa de una grabación.
 
 ---
 
-# 11. Atajos
+# 11. Codificación
 
-SCREEN tendrá atajos configurables.
-
-Ejemplo inicial:
-
-```text
-CTRL + SHIFT + R
-    Iniciar / detener
-
-CTRL + SHIFT + P
-    Pausar / reanudar
-
-ESC
-    Cancelar selección
-```
-
-Los valores definitivos podrán modificarse durante el desarrollo.
-
----
-
-# 12. Recording Profiles
-
-SCREEN deberá permitir perfiles de grabación.
-
-Ejemplos:
-
-```text
-Quick Record
-Tutorial
-Gaming
-Support
-Presentation
-Custom
-```
-
-Cada perfil podrá definir:
-
-* Resolución.
-* FPS.
-* Encoder.
-* Bitrate.
-* Audio.
-* Micrófono.
-* Cámara.
-* Cursor.
-* Carpeta de salida.
-
----
-
-# 13. Encoding
-
-La arquitectura separará:
+La arquitectura debe separar:
 
 ```text
 CAPTURE
-   ↓
-FRAME PIPELINE
-   ↓
-ENCODER
-   ↓
-MUXER / CONTAINER
-   ↓
-FILE
+   ≠
+ENCODING
+   ≠
+FILE OUTPUT
 ```
 
-La aplicación deberá aprovechar aceleración por hardware cuando esté disponible.
+El motor de captura no debe estar acoplado innecesariamente a un único formato o codec.
 
-Encoders previstos:
+La arquitectura debe permitir seleccionar posteriormente diferentes tecnologías de codificación sin rediseñar todo el sistema.
 
-* H.264.
-* H.265 / HEVC.
-* AV1.
+Las decisiones definitivas de codecs, contenedores y parámetros se establecerán en:
 
-El soporte efectivo dependerá de las capacidades del sistema y del hardware disponible.
+`ENCODING.md`
 
----
+y
 
-# 14. Hardware Encoding
-
-SCREEN deberá detectar y utilizar aceleración disponible cuando sea apropiado.
-
-Se contemplará soporte para tecnologías como:
-
-* NVIDIA NVENC.
-* AMD hardware encoding.
-* Intel Quick Sync.
-* APIs nativas disponibles.
-
-La selección deberá ser transparente para usuarios normales y configurable para usuarios avanzados.
+`VIDEO-FORMATS.md`.
 
 ---
 
-# 15. Formatos
+# 12. Formatos de salida
 
-El formato principal inicial será:
+SCREEN debe generar archivos de vídeo utilizables por aplicaciones comunes.
 
-**MP4**
+El formato principal y los formatos adicionales serán definidos en:
 
-También se contempla:
+`VIDEO-FORMATS.md`
 
-**WebM**
+La aplicación debe evitar producir archivos incompletos o corruptos como consecuencia de un cierre normal.
 
-La arquitectura debe permitir incorporar posteriormente otros contenedores sin modificar el núcleo de captura.
-
----
-
-# 16. Resolución
-
-SCREEN deberá permitir:
-
-* Original.
-* 720p.
-* 1080p.
-* 1440p.
-* 4K.
-
-La disponibilidad dependerá de la fuente de captura y del hardware.
+El cierre correcto de una grabación debe incluir el proceso necesario para finalizar el contenedor y liberar todos los recursos.
 
 ---
 
-# 17. FPS
+# 13. Interfaz de usuario
 
-Se contemplarán:
+La interfaz debe ser clara y orientada a la grabación.
 
-* 24 FPS.
-* 30 FPS.
-* 60 FPS.
+El usuario debe poder identificar rápidamente:
 
-Valores superiores podrán incorporarse cuando la captura y el hardware lo permitan.
+* qué va a grabar;
+* qué audio está activo;
+* si la cámara está activa;
+* dónde se guardará;
+* cuándo está grabando;
+* cuánto tiempo lleva grabando;
+* cómo detener la grabación.
+
+La interfaz no debe obligar al usuario a navegar por configuraciones complejas para realizar una grabación básica.
 
 ---
 
-# 18. Biblioteca
+# 14. Flujo principal
 
-SCREEN tendrá una biblioteca local de grabaciones.
-
-Debe permitir:
-
-* Ver grabaciones.
-* Reproducir.
-* Renombrar.
-* Eliminar.
-* Abrir ubicación.
-* Consultar información.
-* Buscar.
-* Ordenar.
-* Exportar.
-
-Metadatos previstos:
+El flujo principal del producto será:
 
 ```text
-Nombre
-Fecha
-Duración
-Resolución
-FPS
-Formato
-Codec
-Tamaño
-Ubicación
+APPLICATION START
+       ↓
+SOURCE SELECTION
+       ↓
+RECORDING CONFIGURATION
+       ↓
+READY
+       ↓
+RECORD
+       ↓
+PAUSE / RESUME
+       ↓
+STOP
+       ↓
+FINALIZE
+       ↓
+SAVE
+       ↓
+RECORDING AVAILABLE
 ```
 
 ---
 
-# 19. Editor
+# 15. Arquitectura conceptual
 
-SCREEN incluirá inicialmente un editor sencillo.
+SCREEN debe utilizar una arquitectura modular.
 
-El objetivo no es competir con un editor profesional completo.
+Conceptualmente:
 
-El editor inicial deberá permitir:
+```text
+                 SCREEN by KLIK
+                       │
+        ┌──────────────┼──────────────┐
+        │              │              │
+       UI           CONTROL        SETTINGS
+        │              │              │
+        └──────────────┼──────────────┘
+                       │
+                RECORDING ENGINE
+                       │
+        ┌──────────────┼──────────────┐
+        │              │              │
+     CAPTURE          AUDIO         CAMERA
+        │              │              │
+        └──────────────┼──────────────┘
+                       │
+                    PROCESS
+                       │
+                   ENCODING
+                       │
+                    OUTPUT
+```
 
-* Recortar inicio.
-* Recortar final.
-* Cortar segmentos.
-* Eliminar segmentos.
-* Unir segmentos.
-* Vista previa.
-* Exportación.
+Los componentes concretos y sus interfaces se definirán posteriormente en:
 
-La edición deberá conservar el archivo original hasta que el usuario confirme la operación destructiva o genere una nueva versión.
+* `ARCHITECTURE.md`
+* `COMPONENTS.md`
+* `MODULES.md`
+* `FUNCTIONS.md`
 
 ---
 
-# 20. Recovery System
+# 16. Principios de arquitectura
 
-Las grabaciones largas deben estar protegidas contra pérdidas provocadas por:
+SCREEN debe respetar los siguientes principios:
 
-* Crash.
-* Cierre inesperado.
-* Fallo de aplicación.
-* Interrupción del proceso.
-* Problemas durante la finalización del archivo.
+### 16.1 Separación de responsabilidades
 
-SCREEN deberá mantener información suficiente para intentar recuperar una sesión incompleta.
+Cada módulo debe tener una responsabilidad claramente definida.
 
-Flujo previsto:
+### 16.2 Bajo acoplamiento
 
-```text
-START RECORDING
-       ↓
-RECORDING SESSION
-       ↓
-CHECKPOINTS / TEMP DATA
-       ↓
-FINALIZATION
-       ↓
-FINAL FILE
-```
+Los componentes de captura no deben depender directamente de la interfaz gráfica.
 
-Si se detecta una sesión recuperable:
+### 16.3 Interfaces
 
-```text
-Se encontró una grabación recuperable.
+Las capacidades que puedan variar entre plataformas, APIs o tecnologías deben abstraerse mediante interfaces apropiadas.
 
-[ RECUPERAR ]
+### 16.4 Testabilidad
 
-[ ELIMINAR ]
-```
+Los componentes deben poder probarse individualmente siempre que sea técnicamente posible.
+
+### 16.5 Extensibilidad
+
+La incorporación de nuevas fuentes, codecs o funcionalidades no debe requerir una reescritura completa del sistema.
+
+### 16.6 Seguridad
+
+La aplicación debe ejecutarse con los privilegios mínimos necesarios.
+
+### 16.7 Rendimiento
+
+La captura debe diseñarse considerando especialmente:
+
+* CPU;
+* GPU;
+* memoria;
+* almacenamiento;
+* ancho de banda interno;
+* latencia del pipeline.
+
+---
+
+# 17. Tecnología
+
+El lenguaje principal del proyecto será:
+
+**Go**
+
+La arquitectura debe evitar dependencias innecesarias y mantener claramente identificadas las integraciones con APIs nativas del sistema operativo.
+
+Las tecnologías concretas de:
+
+* captura;
+* audio;
+* cámara;
+* codecs;
+* aceleración;
+* interfaz;
+
+serán definidas en los documentos técnicos correspondientes.
+
+No se debe seleccionar una tecnología únicamente por conveniencia de implementación.
+
+Debe evaluarse:
+
+* estabilidad;
+* rendimiento;
+* mantenimiento;
+* compatibilidad;
+* licencia;
+* integración con Windows;
+* soporte de hardware.
+
+---
+
+# 18. Dependencias externas
+
+Las dependencias externas deben mantenerse bajo control.
+
+Cada dependencia deberá tener una justificación técnica.
+
+No se permitirá introducir una dependencia:
+
+* duplicada;
+* innecesaria;
+* abandonada;
+* incompatible con la licencia del proyecto;
+* utilizada solamente para resolver una tarea trivial que pueda resolverse adecuadamente dentro de la arquitectura.
+
+Las dependencias críticas deberán documentarse.
+
+---
+
+# 19. Privacidad
+
+SCREEN debe ser un producto local-first.
+
+La grabación debe procesarse localmente en el equipo del usuario.
+
+El sistema no debe enviar automáticamente las grabaciones a servidores externos.
+
+No se debe introducir telemetría obligatoria sin que exista una especificación explícita para ello.
+
+La privacidad será desarrollada en:
+
+`PRIVACY.md`
+
+---
+
+# 20. Seguridad
+
+La aplicación debe seguir principios de seguridad desde el comienzo del proyecto.
+
+Como mínimo:
+
+* privilegios mínimos;
+* validación de rutas;
+* protección contra escritura accidental fuera del destino;
+* validación de configuración;
+* manejo seguro de archivos temporales;
+* limpieza de recursos;
+* protección de procesos;
+* manejo seguro de errores;
+* ausencia de secretos embebidos.
+
+Los requisitos completos estarán en:
+
+`SECURITY.md`
 
 ---
 
 # 21. Rendimiento
 
-El rendimiento será una prioridad de arquitectura.
+El rendimiento es una característica fundamental.
 
-SCREEN debe minimizar:
+SCREEN debe diseñarse para evitar:
 
-* Uso de CPU.
-* Uso de memoria.
-* Copias innecesarias de frames.
-* Latencia.
-* Consumo de almacenamiento temporal.
+* pérdidas innecesarias de frames;
+* bloqueos de interfaz;
+* consumo excesivo de memoria;
+* crecimiento incontrolado de buffers;
+* bloqueos durante la escritura;
+* desincronización audio/vídeo.
 
-Debe utilizar:
-
-* Buffers controlados.
-* Backpressure.
-* Procesamiento concurrente.
-* Hardware encoding cuando esté disponible.
-* Gestión eficiente de memoria.
-
-Una grabación no debe paralizar innecesariamente el equipo del usuario.
+La captura y codificación deben utilizar pipelines apropiados para mantener la interfaz responsiva.
 
 ---
 
-# 22. Arquitectura general
+# 22. Hardware acceleration
 
-La arquitectura conceptual será:
+Cuando sea compatible con el hardware y el sistema operativo, SCREEN debe poder aprovechar aceleración por hardware.
+
+La arquitectura debe permitir utilizar capacidades disponibles de:
+
+* GPU;
+* codificadores hardware;
+* APIs multimedia del sistema.
+
+La aceleración no debe ser un requisito absoluto para que la aplicación funcione.
+
+Debe existir un camino de software cuando sea viable.
+
+Las decisiones técnicas se documentarán en:
+
+`HARDWARE-ACCELERATION.md`.
+
+---
+
+# 23. Compatibilidad
+
+La primera plataforma objetivo será:
+
+**Windows**
+
+La compatibilidad concreta con versiones de Windows deberá quedar definida en:
+
+`COMPATIBILITY.md`.
+
+La aplicación debe detectar de forma controlada capacidades no disponibles y presentar errores comprensibles al usuario.
+
+---
+
+# 24. Configuración
+
+Las preferencias del usuario deben estar centralizadas.
+
+Entre ellas:
+
+* fuente de captura;
+* resolución;
+* FPS;
+* calidad;
+* codec;
+* formato;
+* destino;
+* audio;
+* micrófono;
+* cámara;
+* cursor;
+* hotkeys;
+* overlays;
+* opciones visuales.
+
+La configuración debe estar separada de la lógica de captura.
+
+---
+
+# 25. Hotkeys
+
+SCREEN debe soportar teclas rápidas configurables para operaciones como:
+
+* iniciar grabación;
+* detener;
+* pausar;
+* reanudar.
+
+El sistema debe evitar conflictos peligrosos con combinaciones del sistema operativo.
+
+La especificación completa estará en:
+
+`HOTKEYS.md`.
+
+---
+
+# 26. Manejo de errores
+
+Los errores deben clasificarse.
+
+Como mínimo:
 
 ```text
-                    SCREEN by KLIK
-                           │
-             ┌─────────────┴─────────────┐
-             │                           │
-          UI LAYER                  GO CORE
-                                         │
-              ┌──────────────────────────┼──────────────────────┐
-              │                          │                      │
-          Capture                    Audio                  Camera
-              │                          │                      │
-              └──────────────────────────┼──────────────────────┘
-                                         │
-                                Recording Engine
-                                         │
-                                  Media Engine
-                                         │
-                               Encoder / Muxer
-                                         │
-                              ┌──────────┴──────────┐
-                              │                     │
-                           Library                Editor
-                              │                     │
-                              └──────────┬──────────┘
-                                         │
-                                      Export
+CONFIGURATION ERROR
+CAPTURE ERROR
+AUDIO ERROR
+CAMERA ERROR
+ENCODER ERROR
+OUTPUT ERROR
+DEVICE ERROR
+RESOURCE ERROR
+SYSTEM ERROR
 ```
 
----
+Cada error debe proporcionar información suficiente para:
 
-# 23. Go
-
-Go será el lenguaje principal del núcleo de aplicación.
-
-Responsabilidades previstas:
-
-* Orquestación.
-* Estado.
-* Configuración.
-* Recording sessions.
-* Jobs.
-* Biblioteca.
-* Exportación.
-* IPC.
-* Logging.
-* Diagnóstico.
-* Recovery.
-* Integración con KLIK OS.
-
-No se intentará implementar en Go puro todo el procesamiento multimedia de bajo nivel.
+* diagnosticarlo;
+* registrarlo;
+* mostrar un mensaje apropiado;
+* determinar si la operación puede continuar.
 
 ---
 
-# 24. Native Layer
+# 27. Logging
 
-Las funciones dependientes del sistema operativo estarán encapsuladas.
+SCREEN debe disponer de logging estructurado.
 
-En Windows:
+Los logs deben servir para:
+
+* diagnóstico;
+* soporte;
+* desarrollo;
+* análisis de errores;
+* validación.
+
+Los logs no deben contener innecesariamente información privada del usuario.
+
+La especificación estará en:
+
+`LOGGING.md`.
+
+---
+
+# 28. Testing
+
+Ninguna fase debe considerarse terminada únicamente porque el código compile.
+
+La validación debe incluir, cuando corresponda:
 
 ```text
-native/windows/
-│
-├── capture/
-├── audio/
-├── camera/
-├── input/
-├── monitor/
-└── hardware/
+BUILD
+  ↓
+UNIT TESTS
+  ↓
+INTEGRATION TESTS
+  ↓
+FUNCTIONAL TESTS
+  ↓
+PERFORMANCE TESTS
+  ↓
+REAL CAPTURE
+  ↓
+OUTPUT VALIDATION
 ```
 
-El Core de Go se comunicará con estas capacidades mediante interfaces bien definidas.
+El sistema deberá demostrar que una grabación real:
+
+1. inicia;
+2. captura;
+3. mantiene sincronización;
+4. finaliza;
+5. genera un archivo;
+6. produce un archivo reproducible;
+7. libera correctamente los recursos.
 
 ---
 
-# 25. Media Engine
+# 29. Code Assist
 
-La arquitectura multimedia deberá permanecer abstraída.
+Code Assist será utilizado como herramienta de implementación.
+
+Sin embargo, la documentación del proyecto constituye la autoridad técnica.
+
+Code Assist deberá:
+
+1. Leer `README.md`.
+2. Leer `REQUIREMENTS.md`.
+3. Leer la documentación específica de la fase.
+4. Respetar la arquitectura.
+5. Implementar únicamente el alcance autorizado.
+6. Ejecutar las pruebas correspondientes.
+7. Resolver errores de compilación.
+8. Verificar los criterios de aceptación.
+9. Informar exactamente qué fue implementado.
+10. No declarar terminada una fase sin evidencia.
+
+Code Assist **no debe inventar requisitos**.
+
+Code Assist **no debe cambiar unilateralmente la arquitectura**.
+
+Code Assist **no debe eliminar funcionalidades existentes para solucionar un problema**.
+
+Las reglas completas estarán en:
+
+`CODE-ASSIST-CONTRACT.md`.
+
+---
+
+# 30. Trazabilidad
+
+Cada requisito deberá poder relacionarse con:
 
 ```text
-Media Engine
-│
-├── Capture
-├── Encode
-├── Decode
-├── Mux
-├── Demux
-├── Trim
-├── Export
-└── Probe
-```
-
-Si se utiliza FFmpeg u otro componente multimedia, su integración deberá permanecer encapsulada.
-
-El resto de SCREEN no debe depender directamente de implementaciones específicas.
-
----
-
-# 26. IPC
-
-Los componentes que necesiten comunicarse fuera del proceso principal utilizarán IPC.
-
-Objetivos:
-
-* Aislamiento.
-* Estabilidad.
-* Control.
-* Diagnóstico.
-* Recuperación.
-
-La tecnología concreta de IPC se definirá durante la fase de arquitectura técnica.
-
----
-
-# 27. Interfaz
-
-La interfaz deberá priorizar simplicidad.
-
-Pantalla principal conceptual:
-
-```text
-┌─────────────────────────────────────────────┐
-│              SCREEN by KLIK                 │
-├─────────────────────────────────────────────┤
-│                                             │
-│                  ● GRABAR                   │
-│                                             │
-│     Pantalla     Ventana     Región         │
-│                                             │
-│     🔊 Sistema    🎙 Micrófono              │
-│     🎥 Cámara     🖱 Cursor                 │
-│                                             │
-├─────────────────────────────────────────────┤
-│ RECENT                                      │
-│                                             │
-│ Tutorial.mp4                  12:34         │
-│ Demo.mp4                       08:21         │
-│                                             │
-└─────────────────────────────────────────────┘
-```
-
-La interfaz final podrá cambiar, pero debe conservar el principio de **mínima fricción**.
-
----
-
-# 28. Quick Record
-
-SCREEN tendrá un modo de grabación rápida.
-
-El usuario debe poder comenzar una grabación con mínima configuración.
-
-Configuración predeterminada:
-
-```text
-Pantalla principal
-+
-Audio del sistema
-+
-Micrófono opcional
-+
-30 FPS
-+
-H.264
-+
-MP4
-```
-
-Los valores definitivos serán configurables.
-
----
-
-# 29. Configuración avanzada
-
-Los usuarios avanzados tendrán acceso a:
-
-```text
-VIDEO
-├── Resolution
-├── FPS
-├── Bitrate
-├── Encoder
-├── Hardware Encoder
-└── Keyframe
-
-AUDIO
-├── Devices
-├── Sample Rate
-├── Channels
-└── Bitrate
-
-CAPTURE
-├── Monitor
-├── Window
-├── Region
-└── Cursor
-
-CAMERA
-├── Device
-├── Resolution
-├── Position
-└── Size
-
-OUTPUT
-├── Format
-├── Folder
-├── Naming
-└── Organization
-```
-
----
-
-# 30. Organización de archivos
-
-SCREEN debe utilizar una estructura local organizada.
-
-Ejemplo:
-
-```text
-SCREEN Recordings/
-│
-├── 2026/
-│   └── 09/
-│       └── 07/
-│           ├── Recording_001.mp4
-│           ├── Recording_002.mp4
-│           └── Recording_003.mp4
-│
-└── Projects/
-```
-
-La ubicación deberá poder configurarse.
-
----
-
-# 31. Nombres automáticos
-
-SCREEN deberá poder generar nombres automáticamente.
-
-Ejemplo:
-
-```text
-Screen_2026-09-07_18-30-42.mp4
-```
-
-El usuario podrá establecer patrones personalizados.
-
----
-
-# 32. Seguridad
-
-SCREEN debe aplicar principios de seguridad desde el comienzo.
-
-Debe evitar:
-
-* Ejecución innecesaria de privilegios elevados.
-* Exposición de servicios de red innecesarios.
-* Comunicación externa no autorizada.
-* Acceso innecesario a archivos.
-* Telemetría invasiva.
-
-La aplicación debe funcionar con los privilegios mínimos necesarios.
-
----
-
-# 33. Red
-
-La funcionalidad principal de SCREEN **no requiere conexión a Internet**.
-
-La aplicación no debe depender de una conexión para:
-
-* Grabar.
-* Pausar.
-* Detener.
-* Guardar.
-* Editar.
-* Exportar.
-
-Cualquier función futura que utilice red deberá estar claramente separada del núcleo.
-
----
-
-# 34. Integración KLIK
-
-SCREEN podrá integrar posteriormente con el ecosistema KLIK.
-
-Posibles integraciones:
-
-* KLIK OS.
-* Identidad.
-* Configuración centralizada.
-* Auditoría.
-* Actualizaciones.
-* Administración empresarial.
-
-Pero:
-
-> **SCREEN debe seguir funcionando completamente como aplicación independiente.**
-
----
-
-# 35. Estructura conceptual del proyecto
-
-```text
-screen-by-klik/
-│
-├── cmd/
-│   └── screen/
-│
-├── internal/
-│   ├── app/
-│   ├── capture/
-│   ├── audio/
-│   ├── camera/
-│   ├── recording/
-│   ├── encoding/
-│   ├── media/
-│   ├── editor/
-│   ├── export/
-│   ├── library/
-│   ├── recovery/
-│   ├── shortcuts/
-│   ├── configuration/
-│   ├── ipc/
-│   ├── security/
-│   └── diagnostics/
-│
-├── native/
-│   └── windows/
-│       ├── capture/
-│       ├── audio/
-│       ├── camera/
-│       ├── input/
-│       └── hardware/
-│
-├── ui/
-│
-├── assets/
-│
-├── tests/
-│
-├── docs/
-│
-└── build/
-```
-
-Esta estructura es conceptual y podrá ajustarse después de la auditoría técnica inicial.
-
----
-
-# 36. Fases del proyecto
-
-## FASE 0 — Product Definition
-
-Definir y congelar:
-
-* Alcance.
-* Principios.
-* Límites.
-* MVP.
-* Plataforma inicial.
-* Requisitos funcionales.
-
-**No desarrollar todavía.**
-
----
-
-## FASE 1 — Foundation
-
-* Proyecto.
-* Build.
-* Configuración.
-* Logging.
-* Diagnóstico.
-* UI base.
-* Core.
-
----
-
-## FASE 2 — Capture Engine
-
-* Desktop.
-* Monitor.
-* Región.
-* Ventana.
-* Multi-monitor.
-
----
-
-## FASE 3 — Recording Engine
-
-* Frames.
-* Timing.
-* Buffers.
-* Sessions.
-* Pause.
-* Resume.
-* Stop.
-* Recovery.
-
----
-
-## FASE 4 — Audio Engine
-
-* System audio.
-* Microphone.
-* Mixing.
-* Synchronization.
-
----
-
-## FASE 5 — Encoding
-
-* H.264.
-* MP4.
-* Hardware encoding.
-* Bitrate.
-* FPS.
-* Resolución.
-
----
-
-## FASE 6 — Camera
-
-* Webcam.
-* Overlay.
-* Posición.
-* Tamaño.
-
----
-
-## FASE 7 — Effects
-
-* Cursor.
-* Click effects.
-* Keystrokes.
-* Overlays.
-
----
-
-## FASE 8 — Library
-
-* Grabaciones.
-* Metadatos.
-* Organización.
-* Búsqueda.
-* Reproducción.
-
----
-
-## FASE 9 — Editor
-
-* Timeline.
-* Trim.
-* Cut.
-* Join.
-* Preview.
-
----
-
-## FASE 10 — Export
-
-* Presets.
-* Resolución.
-* FPS.
-* Codec.
-* Container.
-
----
-
-## FASE 11 — Hardening
-
-Pruebas de:
-
-* Grabaciones largas.
-* Alta resolución.
-* Multi-monitor.
-* Alta carga de CPU.
-* Baja memoria.
-* Audio/video synchronization.
-* Hardware encoding.
-* Crash recovery.
-* Archivos corruptos.
-* Dispositivos desconectados.
-* Cambio de resolución.
-* Suspensión/reanudación del equipo.
-
----
-
-## FASE 12 — Release
-
-```text
-Development
+REQUIREMENT
      ↓
-Internal Build
+COMPONENT
      ↓
-Alpha
+MODULE
      ↓
-Beta
+FUNCTION
      ↓
-Release Candidate
+PHASE
      ↓
-Production
+TEST
 ```
 
----
+Esta relación será mantenida en:
 
-# 37. MVP
-
-El MVP de SCREEN by KLIK deberá concentrarse exclusivamente en realizar perfectamente la función principal.
-
-### MVP obligatorio
-
-* Windows.
-* Pantalla completa.
-* Monitor específico.
-* Región.
-* Ventana.
-* Audio del sistema.
-* Micrófono.
-* Pausa.
-* Reanudación.
-* Detención.
-* Cursor.
-* H.264.
-* MP4.
-* Hardware encoding cuando sea posible.
-* Biblioteca básica.
-* Recovery básico.
-
-### Fuera del MVP
-
-Inicialmente quedarán fuera:
-
-* Editor avanzado.
-* Efectos complejos.
-* Streaming.
-* Cloud.
-* Colaboración.
-* IA.
-* Publicación automática.
-* Integraciones externas innecesarias.
+`TRACEABILITY.md`.
 
 ---
 
-# 38. Criterio de calidad
+# 31. Desarrollo por fases
 
-SCREEN no se considerará terminado simplemente porque:
+SCREEN se desarrollará de forma incremental.
+
+Ninguna fase deberá depender de funcionalidades futuras no especificadas.
+
+Cada fase tendrá:
+
+* objetivo;
+* alcance;
+* requisitos;
+* módulos;
+* funciones;
+* dependencias;
+* pruebas;
+* criterios de aceptación;
+* entregables;
+* exclusiones.
+
+---
+
+# 32. Regla de cambios
+
+Los cambios importantes deberán reflejarse primero en la documentación maestra.
+
+Si una modificación cambia:
+
+* comportamiento;
+* arquitectura;
+* interfaz;
+* protocolo;
+* requisitos;
+* dependencias;
+* almacenamiento;
+* seguridad;
+
+la documentación correspondiente deberá actualizarse antes o junto con la implementación.
+
+No se permitirá que el código se convierta silenciosamente en la nueva especificación.
+
+---
+
+# 33. Estado del proyecto
+
+Estado inicial:
+
+**GREENFIELD / STARTING FROM ZERO**
+
+Este repositorio se considera una nueva implementación de SCREEN by KLIK.
+
+No se debe asumir que existe código heredado que deba conservarse.
+
+No se debe diseñar la arquitectura alrededor de código inexistente.
+
+La implementación debe comenzar a partir de los contratos definidos en esta documentación.
+
+---
+
+# 34. Estructura documental
+
+La documentación oficial del proyecto será:
 
 ```text
-"graba pantalla"
+README.md
+REQUIREMENTS.md
+ARCHITECTURE.md
+COMPONENTS.md
+MODULES.md
+FUNCTIONS.md
+
+RECORDING.md
+CAPTURE.md
+AUDIO.md
+CAMERA.md
+SCREEN-SOURCES.md
+WINDOWS.md
+REGION-SELECTOR.md
+
+ENCODING.md
+VIDEO-FORMATS.md
+OUTPUT.md
+FILES.md
+
+HOTKEYS.md
+OVERLAYS.md
+CURSOR.md
+ANNOTATIONS.md
+WATERMARK.md
+
+UI.md
+UX-FLOWS.md
+SETTINGS.md
+
+SECURITY.md
+PRIVACY.md
+LOGGING.md
+ERROR-HANDLING.md
+
+PERFORMANCE.md
+COMPATIBILITY.md
+HARDWARE-ACCELERATION.md
+
+TESTING.md
+BUILD.md
+INSTALLATION.md
+RELEASE.md
+
+CODE-ASSIST-CONTRACT.md
+TRACEABILITY.md
+ROADMAP.md
+CHANGELOG.md
 ```
 
-Debe cumplir simultáneamente:
+---
+
+# 35. Fuente de verdad
+
+La documentación oficial constituye la **fuente de verdad del proyecto**.
+
+En caso de discrepancia:
 
 ```text
-CAPTURA CORRECTA
-        +
-AUDIO SINCRONIZADO
-        +
-VIDEO ESTABLE
-        +
-BUEN RENDIMIENTO
-        +
-RECOVERY
-        +
-ARCHIVO VÁLIDO
-        +
-UX SIMPLE
-        +
-PRIVACIDAD
+REQUIREMENTS
+      ↓
+ARCHITECTURE
+      ↓
+SPECIALIZED SPECIFICATION
+      ↓
+PHASE CONTRACT
+      ↓
+IMPLEMENTATION
 ```
 
----
+El código no podrá contradecir deliberadamente un requisito aprobado.
 
-# 39. Criterio de aceptación del MVP
-
-Una versión MVP será considerada funcional cuando pueda:
-
-1. Abrirse correctamente.
-2. Detectar los monitores.
-3. Seleccionar una fuente de captura.
-4. Seleccionar audio.
-5. Iniciar grabación.
-6. Mantener captura estable.
-7. Pausar.
-8. Reanudar.
-9. Detener.
-10. Finalizar correctamente el archivo.
-11. Generar un MP4 reproducible.
-12. Mantener audio y video sincronizados.
-13. Recuperar una sesión cuando sea técnicamente posible.
-14. Mostrar la grabación en la biblioteca.
-15. Funcionar sin Internet.
+Si existe una contradicción, debe identificarse y resolverse mediante actualización documental controlada.
 
 ---
 
-# 40. Regla de arquitectura
+# 36. Objetivo final
 
-Ningún módulo deberá asumir que otro módulo siempre estará disponible.
+El objetivo de SCREEN by KLIK es entregar un grabador de pantalla de escritorio:
 
-Las dependencias deberán establecerse mediante interfaces claras.
+* profesional;
+* estable;
+* rápido;
+* modular;
+* mantenible;
+* local;
+* seguro;
+* extensible;
+* con buena calidad de grabación;
+* con control completo de las fuentes;
+* preparado para diferentes configuraciones de hardware;
+* y construido mediante contratos técnicos verificables.
 
-Especialmente:
+La meta no es simplemente producir un programa que "grabe la pantalla".
+
+La meta es construir correctamente el **motor de captura y grabación SCREEN by KLIK**, con una arquitectura capaz de evolucionar sin convertirse en un conjunto de parches.
+
+---
+
+# 37. Regla fundamental del proyecto
+
+> **Primero se define. Después se diseña. Después se implementa. Después se prueba.**
+
+Nunca al revés.
 
 ```text
-UI
- ↓
-Application
- ↓
-Domain
- ↓
-Interfaces
- ↓
-Implementations
+DOCUMENTACIÓN
+      ↓
+ARQUITECTURA
+      ↓
+CONTRATO
+      ↓
+IMPLEMENTACIÓN
+      ↓
+TEST
+      ↓
+VALIDACIÓN
+      ↓
+RELEASE
 ```
 
-La implementación concreta de captura, audio, cámara y multimedia deberá permanecer aislada.
+**SCREEN by KLIK**
 
----
+**Desktop Screen Recorder**
 
-# 41. Regla contra el crecimiento descontrolado
-
-SCREEN no debe convertirse en un proyecto monolítico que intente hacer:
-
-* Remote Desktop.
-* Video conferencing.
-* Streaming.
-* Cloud storage.
-* Social network.
-* Video editor profesional.
-* Sistema de vigilancia.
-
-El producto debe permanecer enfocado.
-
-> **SCREEN = Screen Recording.**
-
-Las funcionalidades adicionales solamente podrán incorporarse cuando tengan relación directa con el flujo:
-
-**CAPTURAR → GRABAR → EDITAR → EXPORTAR.**
-
----
-
-# 42. Estado del proyecto
-
-**STATUS: PRODUCT DEFINITION**
-
-El proyecto se encuentra en etapa de definición.
-
-No se considera iniciado el desarrollo hasta completar la especificación técnica correspondiente.
-
-```text
-[✓] Nombre
-[✓] Propósito
-[✓] Visión
-[✓] Principios
-[✓] Alcance inicial
-[✓] MVP conceptual
-[✓] Arquitectura conceptual
-[ ] Arquitectura técnica definitiva
-[ ] Selección definitiva de APIs nativas
-[ ] Selección definitiva del Media Engine
-[ ] Diseño UI definitivo
-[ ] Implementación
-[ ] Testing
-[ ] Release
-```
-
----
-
-# 43. Regla principal del proyecto
-
-> **Primero definir. Después diseñar. Después implementar.**
-
-No se deberá comenzar a generar código de producción hasta que la arquitectura técnica haya sido revisada y aprobada.
-
----
-
-# 44. Identidad
-
-**Producto:** SCREEN by KLIK
-
-**Categoría:** Screen Recorder
-
-**Plataforma inicial:** Windows
-
-**Core:** Go
-
-**Modelo:** Desktop / Local-first
-
-**Dependencia de Internet:** No requerida
-
-**Cloud obligatorio:** No
-
-**KLIK OS:** Integración opcional
-
-**Estado:** Product Definition
-
----
-
-## SCREEN by KLIK
-
-### Capture. Record. Edit. Export.
-
-**Un grabador de pantalla propio del ecosistema KLIK.**
+**KLIK**
