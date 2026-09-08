@@ -1,5 +1,3 @@
-# SCREEN_by_KLIK
-SCREEN_by_KLIK
 # SCREEN by KLIK
 
 ## Professional Screen Recorder
