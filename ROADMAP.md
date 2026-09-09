@@ -935,7 +935,7 @@ Debe existir un Release Candidate cuya funcionalidad y documentación puedan ser
 ## Estado
 
 ```text
-IMPLEMENTED
+PLANNED
 ```
 
 ---
