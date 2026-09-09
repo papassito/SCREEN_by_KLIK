@@ -983,6 +983,8 @@ EVIDENCE
 VALIDATION
      ↓
 CERTIFICATION
+
+Una vez que una fase se considera completada y certificada, el criterio de cierre finaliza con la creación de un **checkpoint (backup)**. Este punto de control sella el estado validado y sirve como línea base segura antes de iniciar la siguiente fase.
 ```
 
 ## Criterio de salida
